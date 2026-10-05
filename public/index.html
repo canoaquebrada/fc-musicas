@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f7a5a">
+  <title>FC Músicas — Sua história vira música</title>
+  <meta name="description" content="Responda 4 perguntas e receba uma letra personalizada grátis. Você só segue para a música cantada se gostar.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="pill">🎵 LETRA PERSONALIZADA GRÁTIS</div>
+        <h1>A história de quem você ama pode virar <span>música.</span></h1>
+        <p>Responda <strong>4 perguntas rápidas</strong>. A gente cria a letra na hora. Se você gostar, aí sim pode transformar em uma música cantada.</p>
+        <div class="proof">
+          <div><b>4</b><span>perguntas</span></div>
+          <div><b>0</b><span>risco</span></div>
+          <div><b>100%</b><span>personalizada</span></div>
+        </div>
+        <button class="primary big" id="heroStart">Criar minha letra grátis →</button>
+        <small>Sem pagamento para ver a letra.</small>
+      </div>
+
+      <div class="phone-shell" id="quiz">
+        <div class="wa-top">
+          <div class="avatar">♫</div>
+          <div><strong>FC Músicas</strong><small>online agora</small></div>
+          <span class="dots">•••</span>
+        </div>
+        <div class="chat" id="chat">
+          <div class="msg bot">Oi! 👋 Vou transformar uma história especial em letra de música.</div>
+          <div class="msg bot">São só <b>4 perguntinhas</b>. A letra sai grátis e você decide depois se quer a versão cantada. 💚</div>
+          <div class="start-card" id="startCard"><button class="primary" id="chatStart">Começar agora</button></div>
+        </div>
+        <div class="composer hidden" id="composer">
+          <div id="fields"></div>
+          <button class="send" id="sendAnswer" aria-label="Enviar">➤</button>
+        </div>
+        <div class="progress"><i id="progressBar"></i></div>
+      </div>
+    </section>
+
+    <section class="benefits">
+      <article><span>✍️</span><h3>Primeiro você aprova a letra</h3><p>Nada de pagar no escuro. Leia sua letra personalizada antes de seguir.</p></article>
+      <article><span>🎤</span><h3>Depois vira música cantada</h3><p>Escolha estilo e voz para transformar a letra em uma faixa especial.</p></article>
+      <article><span>🎁</span><h3>Feita para presentear</h3><p>Aniversário, filhos, casal, família, homenagem ou qualquer história marcante.</p></article>
+    </section>
+
+    <section class="how">
+      <div>
+        <span class="eyebrow">COMO FUNCIONA</span>
+        <h2>Da sua história até a música em 3 passos</h2>
+      </div>
+      <ol>
+        <li><b>1</b><div><strong>Conte a história</strong><span>Quatro perguntas simples.</span></div></li>
+        <li><b>2</b><div><strong>Receba a letra</strong><span>Gerada na hora para você conferir.</span></div></li>
+        <li><b>3</b><div><strong>Só continue se gostar</strong><span>Peça então a versão cantada.</span></div></li>
+      </ol>
+    </section>
+
+    <footer>FC Músicas • Música personalizada com a sua história</footer>
+  </main>
+
+  <dialog id="lyricsDialog">
+    <button class="close" id="closeDialog">×</button>
+    <div class="dialog-head">
+      <span class="eyebrow">SUA LETRA ESTÁ PRONTA 🎉</span>
+      <h2 id="lyricsTitle">Uma música só de vocês</h2>
+      <p>Leia com calma. Se gostar, peça a versão cantada.</p>
+    </div>
+    <pre id="lyricsText"></pre>
+    <div class="approval">
+      <h3>Gostou da letra?</h3>
+      <p>Preencha seus dados para salvar o pedido e seguir para a música cantada.</p>
+      <div class="grid2">
+        <label>Seu nome<input id="customerName" placeholder="Ex.: Felipe"></label>
+        <label>Seu WhatsApp<input id="customerWhatsapp" inputmode="tel" placeholder="(85) 99999-9999"></label>
+      </div>
+      <button class="primary big" id="approveButton">Quero transformar em música cantada 🎤</button>
+      <button class="ghost" id="regenerateButton">Gerar outra versão da letra</button>
+      <p class="order-note" id="orderNote"></p>
+    </div>
+  </dialog>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
