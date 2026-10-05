@@ -1,6 +1,10 @@
 {
   "functions": {
     "api/lyrics/preview.mjs": { "maxDuration": 60 },
-    "api/orders.mjs": { "maxDuration": 10 }
-  }
+    "api/orders.mjs": { "maxDuration": 15 },
+    "api/admin/orders.mjs": { "maxDuration": 15 }
+  },
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" }
+  ]
 }
