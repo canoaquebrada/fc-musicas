@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FC Músicas — Admin</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+body{background:#f4f8f6}.admin{max-width:1240px;margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center}.top h1{margin:0}.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:22px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.stat b{display:block;font-size:26px}.stat span{font-size:12px;color:var(--muted)}.table-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{text-align:left;padding:13px;border-bottom:1px solid #edf1ef;font-size:13px;vertical-align:top}th{background:#f7faf8;position:sticky;top:0}.id{font-weight:800;color:var(--green)}select.status{padding:8px;border:1px solid #d9e3df;border-radius:9px}.smallbtn{border:1px solid #cddbd5;background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer}.empty{text-align:center;padding:50px;color:var(--muted)}dialog pre{white-space:pre-wrap;font-family:inherit;line-height:1.55}.admin-dialog{padding:28px}.admin-dialog h3{margin-top:24px}.answers{display:grid;gap:8px}.answers div{padding:10px;background:#f6faf8;border-radius:10px}.keybox{display:flex;gap:8px}.keybox input{padding:10px;border:1px solid #d2ddd8;border-radius:10px}@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="admin">
+<div class="top">
+<div><span class="eyebrow">PAINEL ADMIN</span><h1>Pedidos de músicas</h1></div>
+<div class="keybox"><input id="adminKey" placeholder="Chave admin (se configurada)"><button class="primary" id="reload">Atualizar</button></div>
+</div>
+<section class="stats" id="stats"></section>
+<div class="table-wrap">
+<table><thead><tr><th>Pedido</th><th>Cliente</th><th>Aniversariante</th><th>Estilo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table>
+<div class="empty hidden" id="empty">Nenhum pedido ainda.</div>
+</div>
+</main>
+<dialog id="detail"><button class="close" id="closeDetail">×</button><div class="admin-dialog" id="detailBody"></div></dialog>
+<script src="/admin.js" type="module"></script>
+</body>
+</html>
