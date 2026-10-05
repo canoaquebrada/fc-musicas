@@ -1,0 +1,15 @@
+{
+  "name": "fc-musicas-personalizadas",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Funil de música personalizada: 4 perguntas, letra grátis, aprovação e pedido da música cantada.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "check": "node --check server.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
