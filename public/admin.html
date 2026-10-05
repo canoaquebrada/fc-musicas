@@ -1,27 +1,110 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FC Músicas — Admin</title>
-<link rel="stylesheet" href="/styles.css">
-<style>
-body{background:#f4f8f6}.admin{max-width:1240px;margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center}.top h1{margin:0}.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:22px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.stat b{display:block;font-size:26px}.stat span{font-size:12px;color:var(--muted)}.table-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{text-align:left;padding:13px;border-bottom:1px solid #edf1ef;font-size:13px;vertical-align:top}th{background:#f7faf8;position:sticky;top:0}.id{font-weight:800;color:var(--green)}select.status{padding:8px;border:1px solid #d9e3df;border-radius:9px}.smallbtn{border:1px solid #cddbd5;background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer}.empty{text-align:center;padding:50px;color:var(--muted)}dialog pre{white-space:pre-wrap;font-family:inherit;line-height:1.55}.admin-dialog{padding:28px}.admin-dialog h3{margin-top:24px}.answers{display:grid;gap:8px}.answers div{padding:10px;background:#f6faf8;border-radius:10px}.keybox{display:flex;gap:8px}.keybox input{padding:10px;border:1px solid #d2ddd8;border-radius:10px}@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}.top{align-items:flex-start;flex-direction:column}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0f7a5a">
+  <title>FC Músicas — Administração</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body{background:#f3f7f5}
+    .admin-shell{min-height:100vh}
+    .admin-top{position:sticky;top:0;z-index:10;background:#10221c;color:#fff;border-bottom:1px solid #254137}
+    .admin-top-inner{max-width:1380px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand-admin{display:flex;align-items:center;gap:11px}.brand-mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#e7fff5;color:#0f7a5a;font-weight:950}
+    .brand-admin strong,.brand-admin small{display:block}.brand-admin small{opacity:.68;margin-top:2px}
+    .top-actions{display:flex;gap:8px}.top-actions button{border:1px solid #3b554c;background:#1a3028;color:#fff;padding:10px 13px;border-radius:11px;cursor:pointer}
+    .admin{max-width:1380px;margin:auto;padding:24px 20px 60px}
+    .login-wrap{min-height:72vh;display:grid;place-items:center}.login-card{width:min(460px,100%);background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+    .login-card h1{font-size:32px;margin:14px 0 8px}.login-card p{color:var(--muted);line-height:1.55}.login-card input{width:100%;padding:14px;border:1px solid #d3dfda;border-radius:12px;margin:10px 0 12px}.login-card button{width:100%}.login-error{color:#b42318;font-size:13px;min-height:20px;margin-top:8px}
+    .dashboard-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:18px}.dashboard-head h1{font-size:34px;margin:7px 0 0}.dashboard-head p{color:var(--muted);margin:4px 0 0}
+    .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin:18px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;box-shadow:0 8px 26px rgba(16,34,28,.04)}.stat b{display:block;font-size:27px;letter-spacing:-.03em}.stat span{font-size:12px;color:var(--muted)}.stat small{display:block;margin-top:5px;color:#0f7a5a;font-weight:800}
+    .summary-row{display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-bottom:14px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px}.panel h3{margin:0 0 12px}.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.funnel div{background:#f6faf8;border-radius:13px;padding:12px}.funnel b{display:block;font-size:20px}.funnel span{font-size:11px;color:var(--muted)}
+    .status-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.status-chip{padding:10px;border:1px solid #e2e9e5;border-radius:12px;display:flex;justify-content:space-between;gap:8px}.status-chip b{color:#0f7a5a}
+    .toolbar{display:grid;grid-template-columns:1fr 230px 160px;gap:10px;margin:16px 0}.toolbar input,.toolbar select{width:100%;padding:12px 13px;border:1px solid #d6e1dc;border-radius:12px;background:#fff}.toolbar button{border:1px solid #d6e1dc;background:#fff;border-radius:12px;padding:11px;cursor:pointer;font-weight:750}
+    .table-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:18px}table{width:100%;border-collapse:collapse;min-width:1100px}th,td{text-align:left;padding:13px;border-bottom:1px solid #edf1ef;font-size:13px;vertical-align:top}th{background:#f7faf8;position:sticky;top:0;z-index:1}.id{font-weight:850;color:#0f7a5a}.muted{color:var(--muted)}.nowrap{white-space:nowrap}
+    select.status{padding:8px;border:1px solid #d9e3df;border-radius:9px;background:#fff}.smallbtn{border:1px solid #cddbd5;background:#fff;border-radius:9px;padding:8px 10px;cursor:pointer}.wa-btn{color:#067647;font-weight:800;text-decoration:none}
+    .empty{text-align:center;padding:54px;color:var(--muted)}
+    dialog{width:min(820px,calc(100% - 22px));max-height:92vh}.detail{padding:28px}.detail h2{font-size:31px;margin:10px 0 4px}.detail-meta{color:var(--muted);font-size:13px}.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.answer{background:#f7faf8;border:1px solid #e6eeea;border-radius:13px;padding:12px}.answer b{display:block;font-size:11px;color:#597068;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.answer.full{grid-column:1/-1}.lyrics-box{white-space:pre-wrap;background:#f7faf8;border:1px solid #e2eae6;border-radius:15px;padding:16px;line-height:1.55;max-height:360px;overflow:auto}.detail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.detail-actions button,.detail-actions a{border:1px solid #cddbd5;background:#fff;border-radius:10px;padding:10px 12px;cursor:pointer;text-decoration:none;color:#18382c;font-weight:750}.detail-actions .primary-link{background:#0f7a5a;color:#fff;border-color:#0f7a5a}
+    .toast{position:fixed;right:18px;bottom:18px;background:#10221c;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:var(--shadow);z-index:100}
+    @media(max-width:1050px){.stats{grid-template-columns:repeat(3,1fr)}.summary-row{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.toolbar button{grid-column:1/-1}}
+    @media(max-width:650px){.admin-top-inner{padding:10px 12px}.admin{padding:18px 12px 40px}.stats{grid-template-columns:repeat(2,1fr)}.funnel{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:1fr}.toolbar button{grid-column:auto}.answer-grid{grid-template-columns:1fr}.answer.full{grid-column:auto}.dashboard-head{align-items:flex-start;flex-direction:column}.top-actions #refreshTop{display:none}}
+  </style>
 </head>
 <body>
-<main class="admin">
-<div class="top">
-<div><span class="eyebrow">PAINEL ADMIN</span><h1>Pedidos de músicas</h1></div>
-<div class="keybox"><input id="adminKey" placeholder="Chave admin (se configurada)"><button class="primary" id="reload">Atualizar</button></div>
+<div class="admin-shell">
+  <header class="admin-top">
+    <div class="admin-top-inner">
+      <div class="brand-admin"><div class="brand-mark">FC</div><div><strong>FC Músicas</strong><small>Administração</small></div></div>
+      <div class="top-actions">
+        <button id="refreshTop" class="hidden">Atualizar</button>
+        <button id="logout" class="hidden">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin">
+    <section class="login-wrap" id="loginWrap">
+      <div class="login-card">
+        <span class="eyebrow">ACESSO RESTRITO</span>
+        <h1>Painel administrativo</h1>
+        <p>Entre com a chave de administração para visualizar clientes, letras, métricas e andamento dos pedidos.</p>
+        <input id="adminKey" type="password" autocomplete="current-password" placeholder="Chave de acesso">
+        <button class="primary big" id="loginButton">Entrar no painel</button>
+        <div class="login-error" id="loginError"></div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="dashboard-head">
+        <div><span class="eyebrow">VISÃO GERAL</span><h1>Pedidos de músicas</h1><p id="lastUpdate">Carregando dados...</p></div>
+      </div>
+
+      <section class="stats" id="stats"></section>
+
+      <section class="summary-row">
+        <article class="panel">
+          <h3>Funil</h3>
+          <div class="funnel" id="funnel"></div>
+        </article>
+        <article class="panel">
+          <h3>Status dos pedidos</h3>
+          <div class="status-list" id="statusSummary"></div>
+        </article>
+      </section>
+
+      <div class="toolbar">
+        <input id="search" placeholder="Buscar pedido, cliente, WhatsApp ou aniversariante">
+        <select id="statusFilter">
+          <option value="">Todos os status</option>
+          <option value="novo">Novo</option>
+          <option value="letra_aprovada">Letra aprovada</option>
+          <option value="aguardando_pagamento">Aguardando pagamento</option>
+          <option value="pago">Pago</option>
+          <option value="produzindo">Produzindo</option>
+          <option value="entregue">Entregue</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+        <button id="exportCsv">Exportar CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pedido</th><th>Cliente</th><th>Aniversariante</th><th>Estilo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty hidden" id="empty">Nenhum pedido encontrado.</div>
+      </div>
+    </section>
+  </main>
 </div>
-<section class="stats" id="stats"></section>
-<div class="table-wrap">
-<table><thead><tr><th>Pedido</th><th>Cliente</th><th>Aniversariante</th><th>Estilo</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead><tbody id="rows"></tbody></table>
-<div class="empty hidden" id="empty">Nenhum pedido ainda.</div>
-</div>
-</main>
-<dialog id="detail"><button class="close" id="closeDetail">×</button><div class="admin-dialog" id="detailBody"></div></dialog>
+
+<dialog id="detail">
+  <button class="close" id="closeDetail">×</button>
+  <div class="detail" id="detailBody"></div>
+</dialog>
+
+<div class="toast hidden" id="toast"></div>
 <script src="/admin.js" type="module"></script>
 </body>
 </html>
