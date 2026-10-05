@@ -8,7 +8,7 @@ const state = { step:0, answers:{}, lyrics:"", source:"", started:false };
 
 const steps = [
   { ask:"1/4 — Qual é o nome do aniversariante e quantos anos vai fazer?", fields:[
-      {name:"honoree",type:"text",placeholder:"Nome do aniversariante",required:true},
+      {name:"honoree",type:"text",placeholder:"Nome do aniversariante ou amor",required:true},
       {name:"age",type:"text",placeholder:"Idade (opcional)"}
     ], summary:v => `${v.honoree}${v.age ? ", " + v.age + " anos" : ""}` },
   { ask:"2/4 — Quem é essa pessoa para você e quais características fazem ela ser especial?", fields:[
