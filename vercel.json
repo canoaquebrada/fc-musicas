@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/lyrics/preview.mjs": { "maxDuration": 60 },
+    "api/orders.mjs": { "maxDuration": 10 }
+  }
+}
