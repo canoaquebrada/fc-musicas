@@ -9,14 +9,14 @@ export default async function handler(req,res){
   if(missing.length)return json(res,400,{error:"Dados incompletos"});
   const customer={name:clean(body.customer?.name,100),whatsapp:clean(body.customer?.whatsapp,40)};
   const lyrics=clean(body.lyrics,12000);
-  if(!customer.name||!customer.whatsapp)return json(res,400,{error:"Informe seu nome e WhatsApp."});
+  if(!customer.whatsapp)return json(res,400,{error:"Informe seu WhatsApp."});
   if(!lyrics)return json(res,400,{error:"Letra não encontrada."});
   const id=orderId();
   const number=(process.env.WHATSAPP_NUMBER||"5585992019111").replace(/\D/g,"");
   const message=encodeURIComponent(
     "Olá! Quero transformar esta letra em música cantada.\n\n"+
     "Pedido: "+id+"\n"+
-    "Cliente: "+customer.name+"\n"+
+    "Cliente: "+(customer.name||"Não informado")+"\n"+
     "WhatsApp do cliente: "+customer.whatsapp+"\n"+
     "Aniversariante: "+answers.honoree+(answers.age?" ("+answers.age+" anos)":"")+"\n"+
     "Relação: "+answers.relationship+"\n"+
