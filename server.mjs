@@ -262,9 +262,9 @@ const server=http.createServer(async(req,res)=>{
       const body=await readBody(req); const answers=normalizeAnswers(body.answers||{}); const missing=validateAnswers(answers);
       if(missing.length) return json(res,400,{error:"Dados incompletos"});
       const order={id:orderId(),createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),status:"novo",customer:{name:clean(body.customer?.name,100),whatsapp:clean(body.customer?.whatsapp,40)},answers,lyrics:clean(body.lyrics,12000),source:clean(body.source,40)};
-      if(!order.customer.name||!order.customer.whatsapp) return json(res,400,{error:"Informe seu nome e WhatsApp."});
+      if(!order.customer.whatsapp) return json(res,400,{error:"Informe seu WhatsApp."});
       const orders=await readJson(ORDERS_FILE,[]); orders.unshift(order); await writeJson(ORDERS_FILE,orders.slice(0,5000)); await event("order_created");
-      const message=encodeURIComponent("Olá! Quero transformar esta letra em música cantada.\n\nPedido: "+order.id+"\nCliente: "+order.customer.name+"\nWhatsApp do cliente: "+order.customer.whatsapp+"\nAniversariante: "+answers.honoree+(answers.age?" ("+answers.age+" anos)":"")+"\nRelação: "+answers.relationship+"\nEstilo: "+answers.genre+"\nVoz: "+answers.voice+"\n\nLETRA GERADA:\n"+order.lyrics);
+      const message=encodeURIComponent("Olá! Quero transformar esta letra em música cantada.\n\nPedido: "+order.id+\nCliente: "+(order.customer.name||"Não informado")+"\nWhatsApp do cliente: "+order.customer.whatsapp+"\nAniversariante: "+answers.honoree+(answers.age?" ("+answers.age+" anos)":"")+"\nRelação: "+answers.relationship+"\nEstilo: "+answers.genre+"\nVoz: "+answers.voice+"\n\nLETRA GERADA:\n"+order.lyrics);
       const whatsappUrl=WHATSAPP_NUMBER?"https://wa.me/"+WHATSAPP_NUMBER+"?text="+message:"";
       return json(res,201,{ok:true,orderId:order.id,nextUrl:CHECKOUT_URL||whatsappUrl,checkoutConfigured:Boolean(CHECKOUT_URL),whatsappConfigured:Boolean(WHATSAPP_NUMBER)});
     }
