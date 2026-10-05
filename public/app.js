@@ -102,7 +102,7 @@ async function createOrder(){
   const name=$("#customerName").value.trim();
   const whatsapp=$("#customerWhatsapp").value.trim();
   const note=$("#orderNote");
-  if(!name||!whatsapp){ note.textContent="Preencha seu nome e WhatsApp para salvar o pedido."; return; }
+  if(!whatsapp){ note.textContent="Informe seu WhatsApp para continuar."; return; }
   const btn=$("#approveButton");
   btn.disabled=true; btn.textContent="Salvando seu pedido…";
   try{
